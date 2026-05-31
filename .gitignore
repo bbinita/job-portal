@@ -1,0 +1,33 @@
+# Virtual environment
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+
+# Database
+db.sqlite3
+
+# IDE
+.idea/
+.vscode/
+
+# Media files (uploaded resumes etc)
+media/
+
+# pytest
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Docker
+*.log
+
+resumes/
