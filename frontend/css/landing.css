@@ -1,0 +1,248 @@
+.hero {
+  min-height: calc(100vh - 62px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  gap: 4rem;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--indigo-light);
+  color: var(--dusk-blue);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.tag-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--dusk-blue);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  color: var(--navy);
+}
+.hero-sub {
+  font-size: 17px;
+  color: var(--grey-olive);
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+.hero-search {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 140px;
+  padding: 0 0.5rem;
+  color: var(--muted);
+}
+.search-box input {
+  border: none;
+  outline: none;
+  background: none;
+  flex: 1;
+  color: var(--navy);
+}
+.search-box + .search-box {
+  border-left: 1.5px solid var(--border);
+}
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+.stat strong {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+}
+.stat span {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+.stat-divider {
+  width: 1px;
+  height: 30px;
+  background: var(--border);
+}
+
+/* Floating job cards */
+.hero-visual {
+  position: relative;
+  height: 420px;
+}
+.job-card-float {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  width: 230px;
+  box-shadow: var(--shadow-lg);
+  animation: float 4s ease-in-out infinite;
+}
+.card-1 {
+  top: 20px;
+  left: 0;
+  animation-delay: 0s;
+}
+.card-2 {
+  top: 150px;
+  right: 20px;
+  animation-delay: 0.8s;
+}
+.card-3 {
+  bottom: 30px;
+  left: 40px;
+  animation-delay: 1.6s;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.jcf-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.jcf-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--dusk-blue);
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jcf-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.jcf-company {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* Sections */
+.section-alt {
+  background: var(--surface);
+  padding: 5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  color: var(--navy);
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.step-card {
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+}
+.step-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--indigo-light);
+  color: var(--dusk-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+.step-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.step-card p {
+  font-size: 14px;
+  color: var(--grey-olive);
+  line-height: 1.65;
+}
+
+.featured-section {
+  padding: 5rem 0;
+}
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

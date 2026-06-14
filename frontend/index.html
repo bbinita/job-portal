@@ -1,0 +1,1381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobConnect</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/landing.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/jobs.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/modals.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════ NAVBAR ═══ -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-inner">
+        <a class="logo" href="#" onclick="showPage('landing')"
+          >Job<span>Connect</span></a
+        >
+        <div class="nav-links" id="nav-links">
+          <a href="#" onclick="showPage('jobs')">Browse Jobs</a>
+        </div>
+        <div class="nav-actions" id="nav-actions">
+          <button class="btn-ghost" onclick="showPage('auth')">Log in</button>
+          <button class="btn-primary" onclick="showPage('auth')">
+            Sign up
+          </button>
+        </div>
+        <div class="nav-user hidden" id="nav-user">
+          <div class="notif-wrap">
+            <button
+              class="notif-btn"
+              onclick="toggleNotifications()"
+              id="notif-btn"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+              <span class="notif-badge hidden" id="notif-badge">0</span>
+            </button>
+            <div class="notif-dropdown hidden" id="notif-dropdown">
+              <div class="notif-header">
+                <span>Notifications</span>
+                <button class="mark-all-btn" onclick="markAllRead()">
+                  Mark all read
+                </button>
+              </div>
+              <div class="notif-list" id="notif-list">
+                <p class="notif-empty">No notifications yet.</p>
+              </div>
+            </div>
+          </div>
+          <div class="profile-wrap">
+            <button
+              class="profile-btn"
+              onclick="toggleProfileMenu()"
+              id="profile-btn"
+            >
+              <div class="avatar" id="nav-avatar">U</div>
+              <span id="nav-username">User</span>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+            <div class="profile-menu hidden" id="profile-menu">
+              <a
+                href="#"
+                onclick="
+                  goToDashboard();
+                  closeAllDropdowns();
+                "
+                >Dashboard</a
+              >
+              <hr />
+              <a href="#" onclick="logout()" class="logout-link">Log out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════ LANDING ═══ -->
+    <section class="page active" id="page-landing">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="tag-dot"></span>Connecting talent with opportunity
+          </div>
+          <h1>
+            Find work that <span class="gradient-text">matters to you</span>
+          </h1>
+          <p class="hero-sub">
+            Browse jobs from companies that care. Post roles and find the right
+            people — faster.
+          </p>
+          <div class="hero-search">
+            <div class="search-box">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Job title, keyword..."
+                id="hero-search-input"
+              />
+            </div>
+            <div class="search-box">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <select id="hero-location-input" class="search-select">
+                <option value="">All locations</option>
+                <option value="REMOTE">Remote</option>
+                <option value="ON-SITE">On-site</option>
+                <option value="HYBRID">Hybrid</option>
+              </select>
+            </div>
+            <button class="btn-primary" onclick="searchJobs()">
+              Search Jobs
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <strong id="stat-jobs">0</strong><span>Open roles</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat"><strong>200+</strong><span>Companies</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><strong>5k+</strong><span>Candidates</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="job-card-float card-1">
+            <div class="jcf-top">
+              <div class="jcf-logo">F</div>
+              <span class="status-pill pill-emerald">Hiring</span>
+            </div>
+            <p class="jcf-title">Frontend Developer</p>
+            <p class="jcf-company">Fusemachines · Remote</p>
+          </div>
+          <div class="job-card-float card-2">
+            <div class="jcf-top">
+              <div class="jcf-logo" style="background: var(--steel-blue)">
+                L
+              </div>
+              <span class="status-pill pill-emerald">Hiring</span>
+            </div>
+            <p class="jcf-title">Backend Engineer</p>
+            <p class="jcf-company">Leapfrog · Hybrid</p>
+          </div>
+          <div class="job-card-float card-3">
+            <div class="jcf-top">
+              <div class="jcf-logo" style="background: var(--grey-olive)">
+                Y
+              </div>
+              <span class="status-pill pill-emerald">Hiring</span>
+            </div>
+            <p class="jcf-title">ML Engineer</p>
+            <p class="jcf-company">YoungInnovations · On-site</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-alt">
+        <div class="container">
+          <h2 class="section-title">How it works</h2>
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <h3>Create your profile</h3>
+              <p>
+                Sign up as a candidate or company. Fill in your details, skills,
+                or company info.
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </div>
+              <h3>Browse or post jobs</h3>
+              <p>
+                Candidates search and filter open roles. Companies post jobs and
+                reach thousands.
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                </svg>
+              </div>
+              <h3>Apply and track</h3>
+              <p>
+                Submit your resume and cover letter. Track every application
+                from your dashboard.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container featured-section">
+        <div class="section-header">
+          <h2 class="section-title">Latest openings</h2>
+          <button class="btn-ghost" onclick="showPage('jobs')">
+            View all →
+          </button>
+        </div>
+        <div class="jobs-grid" id="landing-jobs-grid">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container footer-inner">
+          <span class="logo">Job<span>Connect</span></span>
+          <span style="color: var(--grey-olive)">© 2025 JobConnect.</span>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ═══════════════════════════════════ AUTH ═══ -->
+    <section class="page" id="page-auth">
+      <div class="auth-split">
+        <div class="auth-left">
+          <div class="auth-left-inner">
+            <a class="logo" href="#" onclick="showPage('landing')"
+              >Job<span>Connect</span></a
+            >
+            <h2>
+              Your next opportunity <br /><span class="gradient-text"
+                >starts here.</span
+              >
+            </h2>
+            <p>
+              Join thousands of candidates and companies already on the
+              platform.
+            </p>
+          </div>
+        </div>
+        <div class="auth-right">
+          <div class="auth-box">
+            <div class="auth-tabs">
+              <button
+                class="auth-tab active"
+                onclick="switchAuthTab('login')"
+                id="tab-login"
+              >
+                Log in
+              </button>
+              <button
+                class="auth-tab"
+                onclick="switchAuthTab('register')"
+                id="tab-register"
+              >
+                Sign up
+              </button>
+            </div>
+
+            <!-- LOGIN -->
+            <div
+              id="login-form"
+              style="display: flex; flex-direction: column; gap: 1.25rem"
+            >
+              <div class="form-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  id="login-username"
+                  placeholder="your_username"
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  id="login-password"
+                  placeholder="••••••••"
+                  class="form-input"
+                />
+              </div>
+              <div class="error-msg hidden" id="login-error"></div>
+              <button
+                class="btn-primary full-width"
+                onclick="login()"
+                id="login-btn"
+              >
+                Log in
+              </button>
+              <p class="auth-switch-text">
+                Don't have an account?
+                <a href="#" onclick="switchAuthTab('register')">Sign up</a>
+              </p>
+            </div>
+
+            <!-- REGISTER -->
+            <div
+              id="register-form"
+              class="hidden"
+              style="display: none; flex-direction: column; gap: 1.25rem"
+            >
+              <div class="role-toggle">
+                <button
+                  class="role-btn active"
+                  onclick="switchRole('candidate')"
+                  id="role-candidate"
+                >
+                  I'm a Candidate
+                </button>
+                <button
+                  class="role-btn"
+                  onclick="switchRole('company')"
+                  id="role-company"
+                >
+                  I'm a Company
+                </button>
+              </div>
+
+              <!-- Shared fields -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Username <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    id="reg-username"
+                    placeholder="binita_sharma"
+                    class="form-input"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Phone number</label>
+                  <input
+                    type="tel"
+                    id="reg-phone"
+                    placeholder="98XXXXXXXX"
+                    class="form-input"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email <span class="required">*</span></label>
+                <input
+                  type="email"
+                  id="reg-email"
+                  placeholder="you@example.com"
+                  class="form-input"
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Password <span class="required">*</span></label>
+                  <input
+                    type="password"
+                    id="reg-password"
+                    placeholder="••••••••"
+                    class="form-input"
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    >Confirm password <span class="required">*</span></label
+                  >
+                  <input
+                    type="password"
+                    id="reg-password2"
+                    placeholder="••••••••"
+                    class="form-input"
+                  />
+                </div>
+              </div>
+
+              <!-- CANDIDATE fields -->
+              <div id="candidate-fields">
+                <div
+                  style="display: flex; flex-direction: column; gap: 1.25rem"
+                >
+                  <div class="form-group">
+                    <label
+                      >Skills
+                      <span class="label-hint"
+                        >(e.g. Python, Django, REST APIs)</span
+                      ></label
+                    >
+                    <input
+                      type="text"
+                      id="reg-skill"
+                      placeholder="Python, Django, REST APIs"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Experience</label>
+                    <input
+                      type="text"
+                      id="reg-experience"
+                      placeholder="2 years backend development"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Address</label>
+                    <input
+                      type="text"
+                      id="reg-address"
+                      placeholder="Butwal, Nepal"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Bio</label>
+                    <textarea
+                      id="reg-bio"
+                      class="form-input"
+                      rows="2"
+                      placeholder="A short intro about yourself..."
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label
+                      >Resume
+                      <span class="label-hint">(PDF/DOC, optional)</span></label
+                    >
+                    <input
+                      type="file"
+                      id="reg-resume"
+                      class="form-input"
+                      accept=".pdf,.doc,.docx"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- COMPANY fields -->
+              <div id="company-fields" class="hidden">
+                <div
+                  style="display: flex; flex-direction: column; gap: 1.25rem"
+                >
+                  <div class="form-group">
+                    <label>Company name <span class="required">*</span></label>
+                    <input
+                      type="text"
+                      id="reg-companyname"
+                      placeholder="Acme Corp"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Website <span class="required">*</span></label>
+                    <input
+                      type="url"
+                      id="reg-website"
+                      placeholder="https://acme.com"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Address</label>
+                    <input
+                      type="text"
+                      id="reg-comp-address"
+                      placeholder="Kathmandu, Nepal"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea
+                      id="reg-description"
+                      class="form-input"
+                      rows="2"
+                      placeholder="What does your company do?"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="error-msg hidden" id="reg-error"></div>
+              <button
+                class="btn-primary full-width"
+                onclick="register()"
+                id="reg-btn"
+              >
+                Create account
+              </button>
+              <p class="auth-switch-text">
+                Already have an account?
+                <a href="#" onclick="switchAuthTab('login')">Log in</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ JOBS ═══ -->
+    <section class="page" id="page-jobs">
+      <div class="page-wrap">
+        <div class="jobs-header">
+          <h1>Browse Jobs</h1>
+          <p>Find roles that match your skills and ambitions.</p>
+        </div>
+        <div class="jobs-layout">
+          <aside class="filters-sidebar">
+            <h3>Filters</h3>
+            <div class="form-group">
+              <label>Search</label>
+              <input
+                type="text"
+                class="form-input"
+                id="filter-search"
+                placeholder="Title, keyword..."
+                oninput="filterJobs()"
+              />
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <select
+                class="form-input"
+                id="filter-location"
+                onchange="filterJobs()"
+              >
+                <option value="">All locations</option>
+                <option value="REMOTE">Remote</option>
+                <option value="ON-SITE">On-site</option>
+                <option value="HYBRID">Hybrid</option>
+              </select>
+            </div>
+            <button class="btn-ghost full-width" onclick="clearFilters()">
+              Clear filters
+            </button>
+          </aside>
+          <div class="jobs-main">
+            <div class="jobs-list" id="jobs-list">
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+            </div>
+            <div class="pagination hidden" id="pagination">
+              <button onclick="loadJobs(currentPage - 1)" id="prev-btn">
+                ← Prev
+              </button>
+              <span id="page-indicator">Page 1</span>
+              <button onclick="loadJobs(currentPage + 1)" id="next-btn">
+                Next →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ JOB DETAIL ═══ -->
+    <section class="page" id="page-job-detail">
+      <div class="page-wrap detail-wrap">
+        <button class="back-btn" onclick="showPage('jobs')">
+          ← Back to jobs
+        </button>
+        <div class="detail-layout">
+          <div class="detail-main" id="job-detail-content"></div>
+          <div class="detail-sidebar">
+            <div class="apply-card" id="apply-card">
+              <h3>Interested?</h3>
+              <p>Submit your application below.</p>
+              <div id="apply-section">
+                <div class="form-group">
+                  <label>Cover Letter</label>
+                  <textarea
+                    class="form-input"
+                    id="cover-letter"
+                    rows="4"
+                    placeholder="Tell us why you're a great fit..."
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label
+                    >Resume <span class="label-hint">(PDF/DOC)</span></label
+                  >
+                  <input
+                    type="file"
+                    class="form-input"
+                    id="resume-file"
+                    accept=".pdf,.doc,.docx"
+                  />
+                </div>
+                <div class="error-msg hidden" id="apply-error"></div>
+                <div class="success-msg hidden" id="apply-success"></div>
+                <button
+                  class="btn-primary full-width"
+                  onclick="applyJob()"
+                  id="apply-btn"
+                >
+                  Apply Now
+                </button>
+              </div>
+              <div id="apply-login-prompt" class="hidden">
+                <p class="muted-text">
+                  You need to be logged in as a candidate to apply.
+                </p>
+                <button
+                  class="btn-primary full-width"
+                  onclick="showPage('auth')"
+                >
+                  Log in to apply
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ CANDIDATE DASHBOARD ═══ -->
+    <section class="page" id="page-candidate-dashboard">
+      <div class="dashboard-layout">
+        <aside class="sidebar">
+          <div class="sidebar-logo">Job<span>Connect</span></div>
+          <nav class="sidebar-nav">
+            <a
+              href="#"
+              class="sidebar-link active"
+              onclick="switchCandidateTab('overview')"
+              data-tab="overview"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+              Overview
+            </a>
+            <a
+              href="#"
+              class="sidebar-link"
+              onclick="switchCandidateTab('applications')"
+              data-tab="applications"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+              My Applications
+            </a>
+            <a
+              href="#"
+              class="sidebar-link"
+              onclick="showPage('jobs')"
+              data-tab="browse"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              Browse Jobs
+            </a>
+            <a
+              href="#"
+              class="sidebar-link"
+              onclick="switchCandidateTab('profile')"
+              data-tab="profile"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              Profile
+            </a>
+          </nav>
+          <button class="sidebar-logout" onclick="logout()">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Log out
+          </button>
+        </aside>
+        <main class="dashboard-main">
+          <div class="dash-topbar">
+            <div>
+              <h1 id="cand-greeting">Good morning 👋</h1>
+              <p class="muted-text" id="cand-subtext">
+                Here's your job search at a glance.
+              </p>
+            </div>
+            <div class="topbar-right">
+              <div class="notif-wrap">
+                <button class="notif-btn" onclick="toggleNotificationsDash()">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                  </svg>
+                  <span class="notif-badge hidden" id="notif-badge-dash"
+                    >0</span
+                  >
+                </button>
+                <div class="notif-dropdown hidden" id="notif-dropdown-dash">
+                  <div class="notif-header">
+                    <span>Notifications</span>
+                    <button class="mark-all-btn" onclick="markAllRead()">
+                      Mark all read
+                    </button>
+                  </div>
+                  <div class="notif-list" id="notif-list-dash">
+                    <p class="notif-empty">No notifications yet.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-wrap">
+                <button class="profile-btn" onclick="toggleProfileMenuDash()">
+                  <div class="avatar" id="dash-avatar">U</div>
+                  <span id="dash-username">User</span>
+                </button>
+                <div class="profile-menu hidden" id="profile-menu-dash">
+                  <a
+                    href="#"
+                    onclick="
+                      switchCandidateTab('profile');
+                      closeAllDropdowns();
+                    "
+                    >My Profile</a
+                  >
+                  <hr />
+                  <a href="#" onclick="logout()" class="logout-link">Log out</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overview tab -->
+          <div class="dash-tab active" id="ctab-overview">
+            <div class="stats-row">
+              <div class="stat-card">
+                <span class="stat-label">Total applied</span
+                ><strong class="stat-num" id="cand-total">—</strong>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Under review</span
+                ><strong
+                  class="stat-num"
+                  style="color: var(--steel-blue)"
+                  id="cand-review"
+                  >—</strong
+                >
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Shortlisted</span
+                ><strong class="stat-num" style="color: #10b981" id="cand-short"
+                  >—</strong
+                >
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Rejected</span
+                ><strong
+                  class="stat-num"
+                  style="color: #ef4444"
+                  id="cand-rejected"
+                  >—</strong
+                >
+              </div>
+            </div>
+            <div class="recent-section">
+              <h2>Recent applications</h2>
+              <div id="recent-applications">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Applications tab -->
+          <div class="dash-tab" id="ctab-applications">
+            <div class="tab-header"><h2>My Applications</h2></div>
+            <div class="filter-row">
+              <select
+                class="form-input small-select"
+                id="app-filter-status"
+                onchange="loadMyApplications()"
+              >
+                <option value="">All statuses</option>
+                <option value="SUBMITTED">Submitted</option>
+                <option value="UNDER_REVIEW">Under review</option>
+                <option value="SHORTLISTED">Shortlisted</option>
+                <option value="REJECTED">Rejected</option>
+              </select>
+            </div>
+            <div id="my-applications-list">
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+            </div>
+          </div>
+
+          <!-- Profile tab -->
+          <div class="dash-tab" id="ctab-profile">
+            <div class="tab-header">
+              <h2>My Profile</h2>
+              <button
+                class="btn-primary"
+                onclick="saveProfile()"
+                id="save-profile-btn"
+              >
+                Save changes
+              </button>
+            </div>
+            <div class="profile-form-grid">
+              <div class="form-group full-col">
+                <label>Username</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="prof-username"
+                  disabled
+                />
+              </div>
+              <div class="form-group full-col">
+                <label>Email</label>
+                <input
+                  type="email"
+                  class="form-input"
+                  id="prof-email"
+                  disabled
+                />
+              </div>
+              <div class="form-group full-col">
+                <label>Skills</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="prof-skill"
+                  placeholder="Python, Django, REST APIs"
+                />
+              </div>
+              <div class="form-group full-col">
+                <label>Experience</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="prof-experience"
+                  placeholder="2 years backend dev"
+                />
+              </div>
+              <div class="form-group full-col">
+                <label>Address</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="prof-address"
+                  placeholder="Butwal, Nepal"
+                />
+              </div>
+              <div class="form-group full-col">
+                <label>Bio</label>
+                <textarea class="form-input" id="prof-bio" rows="3"></textarea>
+              </div>
+              <div class="form-group full-col">
+                <label
+                  >Resume
+                  <span class="label-hint">(upload to update)</span></label
+                >
+                <input
+                  type="file"
+                  class="form-input"
+                  id="prof-resume"
+                  accept=".pdf,.doc,.docx"
+                />
+              </div>
+            </div>
+            <div class="success-msg hidden" id="profile-save-success">
+              Profile updated.
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ COMPANY DASHBOARD ═══ -->
+    <section class="page" id="page-company-dashboard">
+      <div class="dashboard-layout">
+        <aside class="sidebar">
+          <div class="sidebar-logo">Job<span>Connect</span></div>
+          <nav class="sidebar-nav">
+            <a
+              href="#"
+              class="sidebar-link active"
+              onclick="switchCompanyTab('overview')"
+              data-tab="overview"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+              Overview
+            </a>
+            <a
+              href="#"
+              class="sidebar-link"
+              onclick="switchCompanyTab('myjobs')"
+              data-tab="myjobs"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="7" width="20" height="14" rx="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+              My Job Posts
+            </a>
+            <a
+              href="#"
+              class="sidebar-link"
+              onclick="switchCompanyTab('applicants')"
+              data-tab="applicants"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              Applicants
+            </a>
+            <a
+              href="#"
+              class="sidebar-link"
+              onclick="switchCompanyTab('profile')"
+              data-tab="profile"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="7" width="20" height="14" rx="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+              Company Profile
+            </a>
+          </nav>
+          <button class="sidebar-logout" onclick="logout()">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Log out
+          </button>
+        </aside>
+        <main class="dashboard-main">
+          <div class="dash-topbar">
+            <div>
+              <h1 id="comp-greeting">Dashboard</h1>
+              <p class="muted-text" id="comp-subtext">
+                Manage your job posts and applicants.
+              </p>
+            </div>
+            <div class="topbar-right">
+              <button class="btn-primary" onclick="openPostJobModal()">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Post a job
+              </button>
+              <div class="profile-wrap">
+                <button class="profile-btn" onclick="toggleProfileMenuComp()">
+                  <div
+                    class="avatar"
+                    id="comp-avatar"
+                    style="background: var(--dusk-blue)"
+                  >
+                    C
+                  </div>
+                  <span id="comp-username">Company</span>
+                </button>
+                <div class="profile-menu hidden" id="profile-menu-comp">
+                  <a
+                    href="#"
+                    onclick="
+                      switchCompanyTab('profile');
+                      closeAllDropdowns();
+                    "
+                    >Company Profile</a
+                  >
+                  <hr />
+                  <a href="#" onclick="logout()" class="logout-link">Log out</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overview tab -->
+          <div class="dash-tab active" id="comptab-overview">
+            <div class="stats-row">
+              <div class="stat-card">
+                <span class="stat-label">Active jobs</span
+                ><strong class="stat-num" id="comp-active-jobs">—</strong>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Total applicants</span
+                ><strong class="stat-num" id="comp-total-apps">—</strong>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Shortlisted</span
+                ><strong
+                  class="stat-num"
+                  style="color: #10b981"
+                  id="comp-shortlisted"
+                  >—</strong
+                >
+              </div>
+            </div>
+            <div class="recent-section">
+              <h2>Your job posts</h2>
+              <div id="comp-recent-jobs">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- My jobs tab -->
+          <div class="dash-tab" id="comptab-myjobs">
+            <div class="tab-header">
+              <h2>My Job Posts</h2>
+              <button class="btn-primary" onclick="openPostJobModal()">
+                + Post new job
+              </button>
+            </div>
+            <div id="company-jobs-list">
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+            </div>
+          </div>
+
+          <!-- Applicants tab -->
+          <div class="dash-tab" id="comptab-applicants">
+            <div class="tab-header"><h2>Applicants</h2></div>
+            <div
+              class="form-group"
+              style="max-width: 300px; margin-bottom: 1.5rem"
+            >
+              <label>Select job to view applicants</label>
+              <select
+                class="form-input"
+                id="applicants-job-select"
+                onchange="loadJobApplicants()"
+              >
+                <option value="">Choose a job...</option>
+              </select>
+            </div>
+            <div id="applicants-list">
+              <p class="muted-text">Select a job above to view applicants.</p>
+            </div>
+          </div>
+
+          <!-- Company profile tab -->
+          <div class="dash-tab" id="comptab-profile">
+            <div class="tab-header">
+              <h2>Company Profile</h2>
+              <button class="btn-primary" onclick="saveProfile()">
+                Save changes
+              </button>
+            </div>
+            <div class="profile-form-grid">
+              <div class="form-group full-col">
+                <label>Username</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="comp-prof-username"
+                  disabled
+                />
+              </div>
+              <div class="form-group full-col">
+                <label>Email</label>
+                <input
+                  type="email"
+                  class="form-input"
+                  id="comp-prof-email"
+                  disabled
+                />
+              </div>
+              <div class="form-group full-col">
+                <label>Company name</label>
+                <input type="text" class="form-input" id="comp-prof-name" />
+              </div>
+              <div class="form-group full-col">
+                <label>Website</label>
+                <input type="url" class="form-input" id="comp-prof-website" />
+              </div>
+              <div class="form-group full-col">
+                <label>Address</label>
+                <input type="text" class="form-input" id="comp-prof-address" />
+              </div>
+              <div class="form-group full-col">
+                <label>Description</label>
+                <textarea
+                  class="form-input"
+                  id="comp-prof-desc"
+                  rows="4"
+                ></textarea>
+              </div>
+            </div>
+            <div class="success-msg hidden" id="comp-profile-save-success">
+              Profile updated.
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════ POST JOB MODAL ═══ -->
+    <div class="modal-overlay hidden" id="post-job-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Post a New Job</h2>
+          <button class="modal-close" onclick="closePostJobModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Job title <span class="required">*</span></label>
+              <input
+                type="text"
+                class="form-input"
+                id="job-title"
+                placeholder="Backend Developer"
+              />
+            </div>
+            <div class="form-group">
+              <label>Location <span class="required">*</span></label>
+              <select class="form-input" id="job-location">
+                <option value="HYBRID">Hybrid</option>
+                <option value="REMOTE">Remote</option>
+                <option value="ON-SITE">On-site</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label
+                >Salary
+                <span class="label-hint">(optional, NPR/month)</span></label
+              >
+              <input
+                type="number"
+                class="form-input"
+                id="job-salary"
+                placeholder="50000"
+              />
+            </div>
+            <div class="form-group">
+              <label>Deadline <span class="required">*</span></label>
+              <input
+                type="datetime-local"
+                class="form-input"
+                id="job-deadline"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description <span class="required">*</span></label>
+            <textarea
+              class="form-input"
+              id="job-desc"
+              rows="5"
+              placeholder="Describe the role, responsibilities, and what you're looking for..."
+            ></textarea>
+          </div>
+          <div class="error-msg hidden" id="post-job-error"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-ghost" onclick="closePostJobModal()">
+            Cancel
+          </button>
+          <button class="btn-primary" onclick="postJob()" id="post-job-btn">
+            Post Job
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ STATUS UPDATE MODAL ═══ -->
+    <div class="modal-overlay hidden" id="status-modal">
+      <div class="modal" style="max-width: 420px">
+        <div class="modal-header">
+          <h2>Update Application Status</h2>
+          <button class="modal-close" onclick="closeStatusModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <p style="color: var(--grey-olive); margin-bottom: 0.5rem">
+            Applicant: <strong id="status-modal-name"></strong>
+          </p>
+          <p style="color: var(--grey-olive); margin-bottom: 1.5rem">
+            Current: <span id="status-modal-current"></span>
+          </p>
+          <div class="form-group">
+            <label>Move to</label>
+            <select class="form-input" id="status-select"></select>
+          </div>
+          <div class="error-msg hidden" id="status-modal-error"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-ghost" onclick="closeStatusModal()">Cancel</button>
+          <button
+            class="btn-primary"
+            onclick="submitStatusUpdate()"
+            id="status-update-btn"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast hidden" id="toast"></div>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/jobs.js"></script>
+    <script src="js/candidate.js"></script>
+    <script src="js/company.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

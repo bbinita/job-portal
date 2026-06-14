@@ -1,0 +1,65 @@
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero-visual {
+    display: none;
+  }
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .auth-split {
+    grid-template-columns: 1fr;
+  }
+  .auth-left {
+    display: none;
+  }
+  .jobs-layout {
+    grid-template-columns: 1fr;
+  }
+  .filters-sidebar {
+    position: static;
+  }
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .profile-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-search {
+    flex-direction: column;
+  }
+  .search-box + .search-box {
+    border-left: none;
+    border-top: 1.5px solid var(--border);
+    padding-top: 0.5rem;
+  }
+  .nav-inner {
+    gap: 1rem;
+  }
+  .page-wrap,
+  .detail-wrap {
+    padding: 1.5rem 1rem;
+  }
+  .dash-tab {
+    padding: 1.5rem 1rem;
+  }
+  .dash-topbar {
+    padding: 1.25rem 1rem;
+  }
+}

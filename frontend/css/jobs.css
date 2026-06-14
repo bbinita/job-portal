@@ -1,0 +1,239 @@
+.page-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+.jobs-header {
+  margin-bottom: 2.5rem;
+}
+.jobs-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+.jobs-header p {
+  color: var(--grey-olive);
+  margin-top: 0.3rem;
+}
+.jobs-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.filters-sidebar {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: sticky;
+  top: 80px;
+}
+.filters-sidebar h3 {
+  font-size: 15px;
+  font-weight: 700;
+}
+.jobs-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+}
+.pagination button {
+  padding: 0.55rem 1.25rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  transition: all 0.18s;
+}
+.pagination button:hover:not(:disabled) {
+  border-color: var(--steel-blue);
+  color: var(--dusk-blue);
+}
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+#page-indicator {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Job cards */
+.job-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition:
+    border-color 0.18s,
+    box-shadow 0.18s,
+    transform 0.18s;
+  cursor: pointer;
+}
+.job-card:hover {
+  border-color: var(--steel-blue);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.job-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+.company-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--dusk-blue);
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.job-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  color: var(--navy);
+}
+.job-card .company-name {
+  font-size: 13px;
+  color: var(--grey-olive);
+  margin-bottom: 0.75rem;
+}
+.job-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+.meta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 12px;
+  color: var(--grey-olive);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+}
+.job-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+.salary-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dusk-blue);
+}
+.date-text {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Job detail */
+.detail-wrap {
+  padding-top: 2rem;
+}
+.back-btn {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--grey-olive);
+  margin-bottom: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.18s;
+}
+.back-btn:hover {
+  color: var(--dusk-blue);
+}
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2.5rem;
+  align-items: start;
+}
+.detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.detail-hero {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+.detail-hero h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0.75rem 0 0.35rem;
+}
+.detail-hero .company-name {
+  font-size: 15px;
+  color: var(--grey-olive);
+  margin-bottom: 1.25rem;
+}
+.detail-body {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+.detail-body h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.detail-body p {
+  font-size: 14px;
+  color: var(--grey-olive);
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.apply-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 80px;
+}
+.apply-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.apply-card > p {
+  font-size: 13px;
+  color: var(--muted);
+}

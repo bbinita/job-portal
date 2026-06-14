@@ -1,0 +1,220 @@
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--sidebar-bg);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.sidebar-logo {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  padding: 0.5rem 0.75rem 1.75rem;
+}
+.sidebar-logo span {
+  color: var(--icy-blue);
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--sidebar-text);
+  transition: all 0.18s;
+}
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+.sidebar-link.active {
+  background: rgba(96, 150, 186, 0.2);
+  color: var(--icy-blue);
+}
+.sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  transition: all 0.18s;
+  margin-top: 1rem;
+}
+.sidebar-logout:hover {
+  color: var(--red);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Main area */
+.dashboard-main {
+  padding: 0;
+  overflow-y: auto;
+  background: var(--bg);
+}
+.dash-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.75rem 2.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.dash-topbar h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.dash-tab {
+  display: none;
+  padding: 2.5rem;
+}
+.dash-tab.active {
+  display: block;
+}
+
+/* Stats */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+.recent-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.tab-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+.filter-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.profile-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 640px;
+}
+
+/* Application rows */
+.application-row {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: border-color 0.18s;
+  margin-bottom: 0.75rem;
+}
+.application-row:hover {
+  border-color: var(--icy-blue);
+}
+.app-info {
+  flex: 1;
+}
+.app-info h3 {
+  font-size: 15px;
+  font-weight: 700;
+}
+.app-info p {
+  font-size: 13px;
+  color: var(--grey-olive);
+  margin-top: 0.2rem;
+}
+.app-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Company job rows */
+.company-job-row {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.18s;
+}
+.company-job-row:hover {
+  border-color: var(--icy-blue);
+}
+.cjr-info h3 {
+  font-size: 15px;
+  font-weight: 700;
+}
+.cjr-info p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+.cjr-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
