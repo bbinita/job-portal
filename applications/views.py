@@ -102,7 +102,7 @@ class UpdateApplicationStatusView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         application.refresh_from_db()
-        send_status_notification(application.id, application.status)
+        send_status_notification.delay(application.id, application.status)
 
         return Response(
             {
