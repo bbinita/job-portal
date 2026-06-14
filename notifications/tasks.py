@@ -1,6 +1,3 @@
-from celery import shared_task
-
-@shared_task
 def send_status_notification(application_id, new_status):
     from applications.models import Application
     from notifications.models import Notification

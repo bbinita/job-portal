@@ -128,7 +128,14 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
         model = CompanyProfile
         fields = ['name', 'website', 'address', 'description']
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    candidate_profile = CandidateProfileSerializer(read_only=True)
+    company_profile = CompanyProfileSerializer(read_only=True)
 
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'email', 'phone_no', 'role',
+                  'candidate_profile', 'company_profile']
 
 
 

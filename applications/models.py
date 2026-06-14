@@ -16,7 +16,7 @@ class Application(models.Model):
     VALID_TRANSITIONS = {
         'SUBMITTED': ['UNDER_REVIEW'],
         'UNDER_REVIEW': ['SHORTLISTED', 'REJECTED'],
-        'SHORTLISTED': [],
+        'SHORTLISTED': ['REJECTED'],  
         'REJECTED': [],
     }
     status = models.CharField(
@@ -38,7 +38,7 @@ class Application(models.Model):
         on_delete=models.CASCADE,
         related_name='applications'
     )
-    resume = models.FileField(upload_to='resumes/')
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
     applied_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, db_index=True,)
 

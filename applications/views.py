@@ -8,14 +8,14 @@ from jobs.models import Job
 from .models import Application
 from .serializers import ApplicationSerializer, ApplicationStatusUpdateSerializer
 from notifications.tasks import send_status_notification
-
+from django.db import IntegrityError
 
 class ApplyJobView(GenericAPIView):
     serializer_class = ApplicationSerializer
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
-        if self.request.user.role != 'CANDIDATE':
+        if request.user.role != 'CANDIDATE':
             raise PermissionDenied("Only candidates can apply.")
 
         job = get_object_or_404(Job, pk=pk)
@@ -25,19 +25,24 @@ class ApplyJobView(GenericAPIView):
                 {"detail": "Job is not active"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        serializer = ApplicationSerializer(data=request.data)
+
+        candidate = request.user.candidate_profile
+
+        serializer = ApplicationSerializer(
+            data=request.data,
+            context={'request': request}
+        )
         serializer.is_valid(raise_exception=True)
 
-        serializer.save(
-            candidate=request.user.candidate_profile,
-            job=job
-        )
+        try:
+            serializer.save(candidate=candidate, job=job)
+        except IntegrityError:
+            return Response(
+                {"detail": "You have already applied for this job."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
-        return Response(
-            serializer.data,
-            status=status.HTTP_201_CREATED
-        )
-
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class JobApplicationsView(ListAPIView):
     serializer_class = ApplicationSerializer
@@ -67,14 +72,17 @@ class MyApplicationView(ListAPIView):
     def get_queryset(self):
         if self.request.user.role != 'CANDIDATE':
             raise PermissionDenied("Only candidates can view their applications.")
-        return Application.objects.select_related(
-            'job',
-            'job__company'
+        qs = Application.objects.select_related(
+            'job', 'job__company'
         ).filter(candidate=self.request.user.candidate_profile)
-
+        
+        status_filter = self.request.query_params.get('status')
+        if status_filter:
+            qs = qs.filter(status=status_filter)
+        return qs
 
 class UpdateApplicationStatusView(GenericAPIView):
-    serializer_class = ApplicationStatusUpdateSerializer  # ← swapped
+    serializer_class = ApplicationStatusUpdateSerializer  
     permission_classes = [IsAuthenticated]
 
     def patch(self, request, pk):
@@ -93,7 +101,8 @@ class UpdateApplicationStatusView(GenericAPIView):
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        send_status_notification.delay(application.id, application.status)
+        application.refresh_from_db()
+        send_status_notification(application.id, application.status)
 
         return Response(
             {

@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import CandidateRegisterSerializer, CompanyRegisterSerializer, CustomTokenObtainPairSerializer, CandidateProfileSerializer, CompanyProfileSerializer
+from .serializers import CandidateRegisterSerializer, CompanyRegisterSerializer, CustomTokenObtainPairSerializer, CandidateProfileSerializer, CompanyProfileSerializer, UserProfileSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import CandidateProfile, CompanyProfile
@@ -58,72 +58,42 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
+
     def post(self, request):
         try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
+            token = RefreshToken(request.data.get("refresh"))
             token.blacklist()
-            return Response({"detail": "Successfully logged out."}, status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
-            return Response({"detail": "Invalid token or bad request."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "Logged out"}, status=205)
+        except Exception:
+            return Response({"detail": "Invalid token"}, status=400)
 
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get_profile_and_serializer_class(self, user):
-
-        if user.role == "CANDIDATE":
-            profile = get_object_or_404(
-                CandidateProfile,
-                user=user
-            )
-            serializer_class = CandidateProfileSerializer
-
-        elif user.role == "COMPANY":
-            profile = get_object_or_404(
-                CompanyProfile,
-                user=user
-            )
-            serializer_class = CompanyProfileSerializer
-
-        else:
-            return None, None
-
-        return profile, serializer_class
-
     def get(self, request):
-        profile, serializer_class = self.get_profile_and_serializer_class(
-            request.user
-        )
-
-        if not profile:
-            return Response(
-                {"error": "Invalid user role"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        serializer = serializer_class(profile)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer = UserProfileSerializer(request.user)
+        return Response(serializer.data)
 
     def patch(self, request):
-        profile, serializer_class = self.get_profile_and_serializer_class(
-            request.user
-        )
+        user = request.user
+        data = request.data
 
-        if not profile:
-            return Response(
-                {"error": "Invalid user role"},
-                status=status.HTTP_400_BAD_REQUEST
+        # Update nested profile based on role
+        if user.role == 'CANDIDATE':
+            profile = user.candidate_profile
+            profile_serializer = CandidateProfileSerializer(
+                profile, data=data, partial=True
             )
+            if profile_serializer.is_valid(raise_exception=True):
+                profile_serializer.save()
 
-        serializer = serializer_class(
-            profile,
-            data=request.data,
-            partial=True
-        )
+        elif user.role == 'COMPANY':
+            profile = user.company_profile
+            profile_serializer = CompanyProfileSerializer(
+                profile, data=data, partial=True
+            )
+            if profile_serializer.is_valid(raise_exception=True):
+                profile_serializer.save()
 
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # Return full updated profile
+        return Response(UserProfileSerializer(user).data)
